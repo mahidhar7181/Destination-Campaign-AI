@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Heart, Maximize2, Download, Briefcase, Trash2, Sparkles, MapPin } from 'lucide-react';
 import { api } from '../api/client';
+const BACKEND_URL = 'https://destination-campaign-ai-backend.onrender.com';
 import { useAuth } from '../context/AuthContext';
 
 export default function ImageCard({ 
@@ -44,7 +45,9 @@ export default function ImageCard({
       {/* Visual Container */}
       <div className="relative w-full aspect-video bg-navy-950 overflow-hidden">
         <img
-          src={image.image_url}
+          src={image.image_url?.startsWith('http')
+  ? image.image_url
+  : `${BACKEND_URL}${image.image_url}`}
           alt={image.title || image.destination}
           loading="lazy"
           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
